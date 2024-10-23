@@ -5,11 +5,10 @@ export sudoku_main
 
 
 include("sudoku_container.jl")
-include("sudoku_container_with_remaining_valid_cell_choices.jl")
 
-using .sudoku_container
-using .sudoku_container_with_remaining_valid_cell_choices
-using .sudoku_container_with_remaining_valid_cell_choices: initialize_sudoku_board
+using Main.sudoku_container
+using Main.sudoku_container_with_remaining_valid_cell_choices
+using Main.sudoku_container_with_remaining_valid_cell_choices: initialize_sudoku_board
 
 
 function sudoku_main()

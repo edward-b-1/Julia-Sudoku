@@ -3,7 +3,7 @@ using Test
 
 include("../src/sudoku_container.jl")
 
-using .sudoku_container
+using Main.sudoku_container
 
 
 function test_sudoku_container()

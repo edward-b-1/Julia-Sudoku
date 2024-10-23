@@ -1,6 +1,6 @@
 include("sudoku.jl")
 
-using .sudoku
+using Main.sudoku
 
 function (@main)(ARGS)
     sudoku_main()
