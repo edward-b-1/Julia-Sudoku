@@ -74,8 +74,7 @@ function test_sudoku_container_1_remaining()
         7 2 6 8 9 5 3 4 1;
     ]
     board_matrix[1, 1] = -1
-    println("index test should print 4")
-    println(board_matrix[2, 1])
+    @test board_matrix[3, 2] == 5
 
     println("board_matrix:")
     println(board_matrix)
@@ -85,7 +84,8 @@ function test_sudoku_container_1_remaining()
         board_matrix,
     )
 
-    @test find_cells(sc) == [(1, 1)]
+    print(find_cells(sc))
+    @test find_cells(sc) == [(3, 1, 1)]
 end
 
 function test_easy_sudoku_puzzle()
@@ -121,12 +121,67 @@ function test_easy_sudoku_puzzle()
     while true
         found_cells = find_cells(sc)
 
-        for found_cell in found_cells
-            println("found cell: $(found_cell)")
-            set_cell(sc, found_cell)
+        if length(found_cells) < 1
+            break
         end
 
-        break
+        for found_cell in found_cells
+            println("found cell: $(found_cell)")
+            (value, tuple_index) = (found_cell[1], found_cell[2:end])
+            set_cell(sc, tuple_index, value)
+        end
+    end
+
+    println("completed board")
+    println(sc)
+
+end
+
+
+function test_easy_sudoku_puzzle_2()
+
+    sc = SudokuContainer()
+
+    board_matrix::Matrix{Int8} = [
+        0 0 0 2 6 0 7 0 1;
+        6 8 0 0 7 0 0 9 0;
+        1 9 0 0 0 4 5 0 0;
+        8 2 0 1 0 0 0 4 0;
+        0 0 4 6 0 2 9 0 0;
+        0 5 0 0 0 3 0 2 8;
+        0 0 9 3 0 0 0 7 4;
+        0 4 0 0 5 0 0 3 6;
+        7 0 3 0 1 8 0 0 0;
+    ]
+    board_matrix = (
+        map(
+            element -> element == 0 ? -1 : element,
+            board_matrix,
+        )
+    )
+
+    println("board_matrix:")
+    println(board_matrix)
+
+    fill_board_using_matrix(
+        sc,
+        board_matrix,
+    )
+    println("initial board")
+    println(sc)
+
+    while true
+        found_cells = find_cells(sc)
+
+        if length(found_cells) < 1
+            break
+        end
+
+        for found_cell in found_cells
+            #println("found cell: $(found_cell)")
+            (value, tuple_index) = (found_cell[1], found_cell[2:end])
+            set_cell(sc, tuple_index, value)
+        end
     end
 
     println("completed board")
